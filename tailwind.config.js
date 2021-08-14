@@ -30,6 +30,9 @@ module.exports = {
 				main: '#FF6D6D',
 				mainLight: '#FFA2A2'
 			},
+			minHeight: {
+				admin: 'calc(100vh - 92px)'
+			},
 			transitionTimingFunction: {
 				cubic: 'cubic-bezier(.175,.885,.32,1.275)'
 			}

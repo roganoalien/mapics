@@ -8,7 +8,6 @@ export default function Home() {
 		<>
 			<Head>
 				<title>Mapics</title>
-				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<main className="h-screen w-screen overflow-x-hidden bg-mBackground flex items-start justify-center">
 				<div className="left w-full md:w-1/2 bg-white h-auto md:h-screen flex flex-col items-center justify-center">
