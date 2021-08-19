@@ -1,18 +1,27 @@
 import Head from 'next/head';
 import { motion } from 'framer-motion';
 import Layout from '../../layout';
+import CardSite from '../../components/regularComponents/CardSite';
 
 export default function Dashboard() {
 	return (
 		<>
 			<Head>
-				<title>Mapics | Sitios</title>
+				<title>Sitios | Mapics</title>
 			</Head>
-			<div className="page-title w-full lg:w-10/12 mx-auto flex items-center justify-start mt-14">
-				<h1 className="font-bold text-mBlack text-2xl pr-3 whitespace-nowrap">
-					Mis sitios
-				</h1>
-				<div className="h-[2px] translate-x-1 bg-mGrayBorder w-full rounded-full"></div>
+			<div className="w-full min-h-10 grid grid-cols-4 gap-5">
+				<CardSite
+					favicon="https://rodrigogarcia.com.mx/favicon.ico"
+					site="rodrigogarcia.com.mx"
+					visits={10}
+					clicks={30}
+				/>
+				<CardSite
+					favicon="https://rodrigogarcia.com.mx/favicon.ico"
+					site="rodrigogarcia.com.mx"
+					visits={10}
+					clicks={30}
+				/>
 			</div>
 		</>
 	);
