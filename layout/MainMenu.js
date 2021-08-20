@@ -22,7 +22,7 @@ export default function MainMenu() {
 							<a>Sitios</a>
 						</ActiveLink>
 					</li>
-					<li className="ml-8">
+					{/* <li className="ml-8">
 						<ActiveLink
 							href="/admin/configuracion"
 							activeClassName="text-main"
@@ -30,7 +30,7 @@ export default function MainMenu() {
 						>
 							<a>Configuración</a>
 						</ActiveLink>
-					</li>
+					</li> */}
 					<li className="flex items-center justify-center ml-8">
 						<ThemeButton />
 					</li>

@@ -200,7 +200,7 @@ export default function Home() {
 						<div className="w-full mt-3 flex items-center justify-center">
 							<button
 								type="submit"
-								className="w-full py-2 flex items-center justify-center bg-main text-white rounded-md shadow-main font-bold tracking-wide transform scale-100 transition duration-150 ease-cubic hover:scale-105 active:scale-95 focus:scale-95"
+								className="w-full py-2 flex items-center justify-center bg-main text-white rounded-md shadow-main font-bold tracking-wide transform scale-100 transition duration-150 ease-cubic hover:scale-95 active:scale-95 focus:scale-95 hover:shadow-mainActive active:shadow-mainActive focus:shadow-mainActive"
 							>
 								Iniciar sesión
 							</button>

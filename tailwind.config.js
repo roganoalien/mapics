@@ -14,6 +14,8 @@ module.exports = {
 		extend: {
 			boxShadow: {
 				main: '0 10px 30px -15px rgb(255,109,109), 0 10px 30px -10px rgb(255,171,171)',
+				mainActive:
+					'0 5px 20px -15px rgba(255, 109, 109), 0 5px 20px -10px rgb(255, 171, 171)',
 				navigation: '10px 0 52px 0 rgba(0,0,0,0.08)',
 				regular:
 					'0 10px 25px 0 rgba(0,0,0,0.06), 0 15px 40px 0 rgba(0,0,0,0.03)',

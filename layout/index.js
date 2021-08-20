@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import PageTitle from './Title';
+// import PageTitle from '../components/Title';
 import MainMenu from './MainMenu';
 import MainFooter from './MainFooter';
 
@@ -9,7 +9,6 @@ export default function Layout({ children }) {
 			<MainMenu />
 			<div className="w-full min-h-admin">
 				<div className="container mx-auto px-10 md:px-20 2xl:px-10">
-					<PageTitle title="Mis sitios" has_button={true} />
 					{children}
 				</div>
 			</div>
