@@ -52,7 +52,8 @@ function CardSite({
 			exit="hidden"
 		>
 			<div className="flex rounded-md bg-white col-span-1 flex-col items-start justify-start border border-mGrayBorder transform scale-100 shadow-none hover:scale-110 hover:border-main hover:shadow-regular duration-100 transition-all ease-in-out">
-				<NextLink href={`/admin/site/${id}`} className="p-4">
+				{/* <NextLink href={`/admin/site/${id}`} className="p-4"> */}
+				<NextLink href={`/admin/sitio`} className="p-4">
 					<span>
 						<div className="w-full flex items-center justify-start text-mBlack">
 							{theFavicon.loading ? (

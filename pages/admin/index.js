@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import Head from 'next/head';
 import { motion } from 'framer-motion';
 import Layout from '../../layout';

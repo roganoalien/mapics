@@ -48,9 +48,9 @@ export default function Profile() {
 						</button>
 					</li>
 				</ul>
-				<div className="w-full h-full lg:w-9/12 px-8 py-10 grid grid-cols-1 lg:grid-cols-2 gap-4">
+				<div className="w-full h-full lg:w-9/12 px-4 py-10 grid grid-cols-1 lg:grid-cols-2 gap-4">
 					{/* PERFIL */}
-					<form className="col-span-1 lg:col-span-2 mb-5 grid grid-cols-1 lg:grid-cols-2 gap-4 bg-gray-50 p-4 rounded-md">
+					<form className="col-span-1 lg:col-span-2 mb-5 grid grid-cols-1 lg:grid-cols-2 gap-4 bg-gray-50 py-6 px-6 rounded-md">
 						<h2 className="col-span-1 lg:col-span-2">
 							Crear usuario nuevo
 						</h2>
@@ -91,93 +91,96 @@ export default function Profile() {
 						<div className="col-span-1 lg:col-span-2 flex items-center justify-end">
 							<button
 								type="submit"
-								className="bg-mBlack text-white font-medium py-2 px-4 rounded-md shadow-miniRegular hover:shadow-none transform scale-100 hover:scale-95 transition-all duration-150 ease-cubic"
+								className="bg-transparent hover:bg-mBlack border border-mBlack text-mBlack hover:text-white font-medium py-2 px-4 rounded-md transition-all duration-150 ease-cubic"
 							>
 								Crear usuario
 							</button>
 						</div>
 					</form>
-					<h2 className="col-span-1 lg:col-span-2">Tu cuenta</h2>
-					<div className="col-span-1">
-						<label
-							htmlFor="email"
-							className="block text-sm font-medium text-mBlack"
-						>
-							Correo
-						</label>
-						<div className="mt-1">
-							<input
-								disabled
-								type="text"
-								name="email"
-								id="email"
-								autoComplete="nope"
-								value="hola@rodrigogarcia.com.mx"
-								className="bg-mBackground font-medium focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md cursor-not-allowed"
-							/>
-						</div>
-					</div>
-					<div className="col-span-1">
-						<label
-							htmlFor="user"
-							className="block text-sm font-medium text-mBlack"
-						>
-							Usuario
-						</label>
-						<div className="mt-1">
-							<input
-								disabled
-								type="text"
-								name="user"
-								id="user"
-								autoComplete="nope"
-								value="roganoalien"
-								className="bg-mBackground font-medium focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md cursor-not-allowed"
-							/>
-						</div>
-					</div>
 
-					<div className="col-span-1">
-						<label
-							htmlFor="new-password"
-							className="block text-sm font-medium text-mBlack"
-						>
-							Nueva contraseña
-						</label>
-						<div className="mt-1">
-							<input
-								type="password"
-								name="new-password"
-								id="new-password"
-								autoComplete="nope"
-								className="focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md"
-							/>
+					<div className="col-span-1 lg:col-span-2 mb-5 grid grid-cols-1 lg:grid-cols-2 gap-4 bg-gray-50 py-6 px-6 rounded-md">
+						<h2 className="col-span-1 lg:col-span-2">Tu cuenta</h2>
+						<div className="col-span-1">
+							<label
+								htmlFor="email"
+								className="block text-sm font-medium text-mBlack"
+							>
+								Correo
+							</label>
+							<div className="mt-1">
+								<input
+									disabled
+									type="text"
+									name="email"
+									id="email"
+									autoComplete="nope"
+									value="hola@rodrigogarcia.com.mx"
+									className="bg-mBackground font-medium focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md cursor-not-allowed"
+								/>
+							</div>
 						</div>
-					</div>
-					<div className="col-span-1">
-						<label
-							htmlFor="confirm-new-password"
-							className="block text-sm font-medium text-mBlack"
-						>
-							Confirmar nueva contraseña
-						</label>
-						<div className="mt-1">
-							<input
-								type="password"
-								name="confirm-new-password"
-								id="confirm-new-password"
-								autoComplete="nope"
-								className="focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md"
-							/>
+						<div className="col-span-1">
+							<label
+								htmlFor="user"
+								className="block text-sm font-medium text-mBlack"
+							>
+								Usuario
+							</label>
+							<div className="mt-1">
+								<input
+									disabled
+									type="text"
+									name="user"
+									id="user"
+									autoComplete="nope"
+									value="roganoalien"
+									className="bg-mBackground font-medium focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md cursor-not-allowed"
+								/>
+							</div>
 						</div>
-					</div>
-					<div className="col-span-1 lg:col-span-2 flex items-center justify-end">
-						<button
-							type="submit"
-							className="bg-main text-white font-medium py-2 px-4 rounded-md shadow-main hover:shadow-mainActive transform scale-100 hover:scale-95 transition-all duration-150 ease-cubic"
-						>
-							Cambiar password
-						</button>
+
+						<div className="col-span-1">
+							<label
+								htmlFor="new-password"
+								className="block text-sm font-medium text-mBlack"
+							>
+								Nueva contraseña
+							</label>
+							<div className="mt-1">
+								<input
+									type="password"
+									name="new-password"
+									id="new-password"
+									autoComplete="nope"
+									className="focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md"
+								/>
+							</div>
+						</div>
+						<div className="col-span-1">
+							<label
+								htmlFor="confirm-new-password"
+								className="block text-sm font-medium text-mBlack"
+							>
+								Confirmar nueva contraseña
+							</label>
+							<div className="mt-1">
+								<input
+									type="password"
+									name="confirm-new-password"
+									id="confirm-new-password"
+									autoComplete="nope"
+									className="focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md"
+								/>
+							</div>
+						</div>
+						<div className="col-span-1 lg:col-span-2 flex items-center justify-end">
+							<button
+								type="submit"
+								className="bg-main text-white font-medium py-2 px-4 rounded-md shadow-main hover:shadow-mainActive transform scale-100 hover:scale-95 transition-all duration-150 ease-cubic"
+							>
+								Cambiar password
+							</button>
+						</div>
 					</div>
 					{/* PERFIL END */}
 				</div>

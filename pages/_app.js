@@ -5,8 +5,11 @@ import { AnimatePresence } from 'framer-motion';
 // REDUX
 import { Provider } from 'react-redux';
 import store from '../redux/store';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/animations/scale.css';
 import 'nprogress/nprogress.css';
 import './styles/nprogressBar.css';
+import './styles/TippyCustom.css';
 import 'tailwindcss/tailwind.css';
 
 NProgress.configure({ showSpinner: true });
