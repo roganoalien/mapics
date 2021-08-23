@@ -13,6 +13,7 @@ module.exports = {
 		},
 		extend: {
 			boxShadow: {
+				right: '10px 0 25px 0 rgba(0,0,0,0.015), 15px 0 40px 0 rgba(0,0,0,0.015)',
 				main: '0 10px 30px -15px rgb(255,109,109), 0 10px 30px -10px rgb(255,171,171)',
 				mainActive:
 					'0 5px 20px -15px rgba(255, 109, 109), 0 5px 20px -10px rgb(255, 171, 171)',

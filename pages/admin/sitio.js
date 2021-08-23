@@ -4,6 +4,8 @@ import Layout from '../../layout';
 import PageTitle from '../../components/regularComponents/Title';
 import SiteTitle from '../../components/regularComponents/SiteTitle';
 import SiteTitleData from '../../components/regularComponents/SiteTitleData';
+import MainChart from '../../components/regularComponents/MainChart';
+import WorldMapData from '../../components/regularComponents/WorldMapData';
 
 export default function Site() {
 	return (
@@ -26,6 +28,8 @@ export default function Site() {
 			>
 				<SiteTitle site="https://rodrigogarcia.com.mx" />
 				<SiteTitleData />
+				<MainChart />
+				<WorldMapData />
 			</motion.div>
 		</>
 	);

@@ -67,7 +67,7 @@ export default function Profile() {
 									name="new-email"
 									id="new-email"
 									autoComplete="nope"
-									className="focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md"
+									className="focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md bg-transparent"
 								/>
 							</div>
 						</div>
@@ -84,14 +84,14 @@ export default function Profile() {
 									name="new-user"
 									id="new-user"
 									autoComplete="nope"
-									className="focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md"
+									className="focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md  bg-transparent"
 								/>
 							</div>
 						</div>
 						<div className="col-span-1 lg:col-span-2 flex items-center justify-end">
 							<button
 								type="submit"
-								className="bg-transparent hover:bg-mBlack border border-mBlack text-mBlack hover:text-white font-medium py-2 px-4 rounded-md transition-all duration-150 ease-cubic"
+								className="bg-transparent border border-mBlack hover:border-main text-mBlack hover:text-main font-medium py-2 px-4 rounded-md transition-all duration-150 ease-cubic"
 							>
 								Crear usuario
 							</button>
@@ -115,7 +115,7 @@ export default function Profile() {
 									id="email"
 									autoComplete="nope"
 									value="hola@rodrigogarcia.com.mx"
-									className="bg-mBackground font-medium focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md cursor-not-allowed"
+									className="bg-mBlack bg-opacity-5 font-medium focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md cursor-not-allowed"
 								/>
 							</div>
 						</div>
@@ -134,7 +134,7 @@ export default function Profile() {
 									id="user"
 									autoComplete="nope"
 									value="roganoalien"
-									className="bg-mBackground font-medium focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md cursor-not-allowed"
+									className="bg-mBlack bg-opacity-5 font-medium focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md cursor-not-allowed"
 								/>
 							</div>
 						</div>
@@ -152,7 +152,7 @@ export default function Profile() {
 									name="new-password"
 									id="new-password"
 									autoComplete="nope"
-									className="focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md"
+									className="focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md bg-transparent"
 								/>
 							</div>
 						</div>
@@ -169,7 +169,7 @@ export default function Profile() {
 									name="confirm-new-password"
 									id="confirm-new-password"
 									autoComplete="nope"
-									className="focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md"
+									className="focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md bg-transparent"
 								/>
 							</div>
 						</div>
