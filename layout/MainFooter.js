@@ -2,7 +2,7 @@ import React from 'react';
 
 function MainFooter() {
 	return (
-		<footer className="w-full flex flex-col items-center justify-center text-mBlack py-5">
+		<footer className="w-full flex flex-col items-center justify-center text-mBlack py-10">
 			<p className="text-center w-full">
 				hecho por{' '}
 				<a
@@ -12,15 +12,6 @@ function MainFooter() {
 					Rodrigo García
 				</a>
 			</p>
-			{/* <p className="text-center w-full text-xs">
-				para solicitar funcionalidades o mejoras mandar{' '}
-				<a
-					href="mailto:hola@rodrigogarcia.com.mx"
-					className="text-main font-bold"
-				>
-					correo
-				</a>
-			</p> */}
 		</footer>
 	);
 }

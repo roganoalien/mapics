@@ -6,6 +6,7 @@ import SiteTitle from '../../components/regularComponents/SiteTitle';
 import SiteTitleData from '../../components/regularComponents/SiteTitleData';
 import MainChart from '../../components/regularComponents/MainChart';
 import WorldMapData from '../../components/regularComponents/WorldMapData';
+import HorizontalDivider from '../../components/regularComponents/HorizontalDivider';
 
 export default function Site() {
 	return (
@@ -29,6 +30,7 @@ export default function Site() {
 				<SiteTitle site="https://rodrigogarcia.com.mx" />
 				<SiteTitleData />
 				<MainChart />
+				<HorizontalDivider text="Vistas por país" color="black" />
 				<WorldMapData />
 			</motion.div>
 		</>

@@ -53,21 +53,26 @@ function WorldMapData() {
 	function handleHover(code) {
 		if (code === 'AQ') return;
 		const country = data?.find(({ x }) => x === code);
-		setTooltip(`${countryNames[code]}: ${country?.y || 0} visitantes`);
+		setTooltip(`${countryNames[code]}: ${country?.y || 0} vistas`);
 	}
 
 	return (
 		<div className="w-full border border-mGrayBorder mt-5 rounded-md flex items-stretch justify-start overflow-hidden">
 			<div className="w-1/3 border-r border-mGrayBorder py-8 px-6 flex flex-col z-10">
-				<div className="w-full flex items-start justify-between mb-1">
+				<div className="w-full flex items-start justify-between mb-2 border-b border-gray-200">
 					<p className="text-mBlack text-md font-bold text-left m-0">
 						Países
 					</p>
 					<p className="text-mBlack text-md font-bold text-right m-0">
-						Visitantes
+						Vistas
 					</p>
 				</div>
-				<CountryFromMap country="México" visits={1000} width="60%" />
+				<CountryFromMap
+					country="México"
+					visits={1000}
+					width="60%"
+					has_states={true}
+				/>
 				<CountryFromMap country="EE.UU" visits={900} width="40%" />
 			</div>
 			<div className="w-2/3" data-tip="" data-for="world-map-tooltip">
