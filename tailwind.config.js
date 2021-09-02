@@ -34,7 +34,8 @@ module.exports = {
 				mainLight: '#FFA2A2'
 			},
 			minHeight: {
-				admin: 'calc(100vh - 92px - 64px)'
+				admin: 'calc(100vh - 92px)'
+				// admin: 'calc(100vh - 92px - 64px)'
 			},
 			transitionTimingFunction: {
 				cubic: 'cubic-bezier(.175,.885,.32,1.275)'

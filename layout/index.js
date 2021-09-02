@@ -12,7 +12,7 @@ export default function Layout({ children }) {
 					{children}
 				</div>
 			</div>
-			<MainFooter />
+			{/* <MainFooter /> */}
 		</motion.main>
 	);
 }

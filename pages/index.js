@@ -16,7 +16,7 @@ export default function Home() {
 						alt="Mapics Analytics transparentes y privados"
 						className="main-logo h-24 w-auto -translate-x-8 mt-32 mb-14"
 					/>
-					<div className="flex flex-wrap items-center justify-start w-8/12">
+					{/* <div className="flex flex-wrap items-center justify-start w-8/12">
 						<div className="holder w-full flex items-center justify-start">
 							<svg
 								height="30"
@@ -109,8 +109,8 @@ export default function Home() {
 								</p>
 							</div>
 						</div>
-					</div>
-					<div className="creator w-full flex flex-col items-center justify-center mt-20">
+					</div> */}
+					{/* <div className="creator w-full flex flex-col items-center justify-center mt-20">
 						<p className="leading-none text-mBlack text-center w-full text-md">
 							Hecho por{' '}
 							<a
@@ -138,7 +138,7 @@ export default function Home() {
 								/>
 							</svg>
 						</a>
-					</div>
+					</div> */}
 				</div>
 				<div className="right w-full md:w-1/2 h-auto md:h-screen flex flex-col items-center justify-center px-32">
 					<h1 className="font-bold text-mBlack text-4xl tracking-wide w-full">
