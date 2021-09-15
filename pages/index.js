@@ -1,22 +1,92 @@
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
+import { motion } from 'framer-motion';
 import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
-import { useState } from 'react';
+import { parseCookies, setCookie } from 'nookies';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { postOpen } from '../hooks/openAPI';
+import { useRouter } from 'next/dist/client/router';
+import { loginValidate, loginValues } from '../utils/utils.formik';
+import Loader from '../components/Loader';
+import BigLoader from '../components/BigLoader';
 
 export default function Home() {
 	const [showPassword, setShowPassword] = useState(false);
-	return (
+	const [loadingAuthText, setLoadingAuthText] = useState('cargando');
+	const [sending, setSending] = useState(false);
+	const [loadAuth, setLoadAuth] = useState(true);
+	const router = useRouter();
+	const jwt = parseCookies().mapics;
+
+	useEffect(async () => {
+		console.log('PARSE COOKIES', jwt);
+		if (jwt) {
+			const response = await postOpen('auth/local/token', {
+				token: jwt
+			});
+			if (response.status === 200) {
+				setTimeout(function () {
+					setLoadingAuthText('redirigiendo');
+					setTimeout(function () {
+						router.push('/admin');
+					}, 2000);
+				}, 1500);
+			} else {
+				setLoadAuth(false);
+			}
+		} else {
+			setLoadAuth(false);
+		}
+	}, []);
+
+	const handleSubmit = async (values) => {
+		console.log('handleSubmit');
+		setSending(true);
+		const response = await postOpen('auth/local', values);
+		if (response.status === 200) {
+			console.log('RESPUESTA AUTH', response);
+			setCookie(null, 'mapics', response.token, {
+				maxAge: values.keep ? 30 * 24 * 60 * 60 : 1 * 24 * 60 * 60,
+				path: '/'
+			});
+			router.push('/admin');
+		} else {
+			setSending(false);
+		}
+	};
+
+	return loadAuth ? (
 		<>
 			<Head>
-				<title>Mapics</title>
+				<title>Mapics Loading</title>
 			</Head>
-			<main className="h-screen w-screen overflow-x-hidden bg-mBackground flex items-start justify-center">
+			<motion.main
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				exit={{ opacity: 0 }}
+				className="h-screen w-screen overflow-x-hidden bg-mBackground flex items-center justify-center"
+			>
+				<BigLoader text={loadingAuthText} />
+			</motion.main>
+		</>
+	) : (
+		<>
+			<Head>
+				<title>Mapics Auth</title>
+			</Head>
+			<motion.main
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				exit={{ opacity: 0 }}
+				className="h-screen w-screen overflow-x-hidden bg-mBackground flex items-start justify-center"
+			>
 				<div className="left w-full md:w-1/2 bg-white h-auto md:h-screen flex flex-col items-center justify-center">
 					<img
 						src="/main-logo-png.png"
 						alt="Mapics Analytics transparentes y privados"
 						className="main-logo h-24 w-auto -translate-x-8 mt-32 mb-14"
 					/>
-					{/* <div className="flex flex-wrap items-center justify-start w-8/12">
+					<div className="flex flex-wrap items-center justify-start w-8/12">
 						<div className="holder w-full flex items-center justify-start">
 							<svg
 								height="30"
@@ -109,8 +179,8 @@ export default function Home() {
 								</p>
 							</div>
 						</div>
-					</div> */}
-					{/* <div className="creator w-full flex flex-col items-center justify-center mt-20">
+					</div>
+					<div className="creator w-full flex flex-col items-center justify-center mt-20">
 						<p className="leading-none text-mBlack text-center w-full text-md">
 							Hecho por{' '}
 							<a
@@ -138,76 +208,102 @@ export default function Home() {
 								/>
 							</svg>
 						</a>
-					</div> */}
+					</div>
 				</div>
 				<div className="right w-full md:w-1/2 h-auto md:h-screen flex flex-col items-center justify-center px-32">
 					<h1 className="font-bold text-mBlack text-4xl tracking-wide w-full">
 						Iniciar Sesión
 					</h1>
-					<form className="w-full flex flex-col items-start justify-start">
-						<div className="w-full mt-10 flex flex-col">
-							<label htmlFor="username" className="text-md">
-								Usuario
-							</label>
-							<input
-								type="text"
-								className="mt-2 bg-transparent border-2 border-mGrayBorder rounded-md py-2 px-4 outline-none focus:ring-0 focus:border-main text-mGray"
-							/>
-						</div>
-						<div className="w-full mt-5 flex flex-col relative">
-							<label htmlFor="username" className="text-md">
-								Password
-							</label>
-							<input
-								type={showPassword ? 'text' : 'password'}
-								className="mt-2 bg-transparent border-2 border-mGrayBorder rounded-md py-2 px-4 outline-none focus:ring-0 focus:border-main text-mGray"
-							/>
-							{showPassword ? (
-								<EyeOffIcon
-									onClick={() =>
-										setShowPassword(!showPassword)
-									}
-									className="absolute right-4 bottom-1 w-auto h-8 stroke-current text-mGrayBorder cursor-pointer"
-								/>
-							) : (
-								<EyeIcon
-									onClick={() =>
-										setShowPassword(!showPassword)
-									}
-									className="absolute right-4 bottom-1 w-auto h-8 stroke-current text-mGrayBorder cursor-pointer"
-								/>
-							)}
-						</div>
-						<div className="w-full mt-3 flex items-center justify-start">
-							<div className="flex items-center h-5">
-								<input
-									id="comments"
-									aria-describedby="comments-description"
-									name="comments"
-									type="checkbox"
-									className="focus:ring-main h-4 w-4 bg-transparent text-main border-mGrayText rounded"
-								/>
-							</div>
-							<div className="ml-3 text-sm">
+					<Formik
+						initialValues={loginValues}
+						validate={loginValidate}
+						onSubmit={handleSubmit}
+					>
+						<Form className="w-full flex flex-col items-start justify-start">
+							<div className="w-full mt-10 flex flex-col">
 								<label
-									htmlFor="comments"
-									className="font-medium text-mGrayText"
+									htmlFor="email"
+									className="text-md flex items-center justify-between"
 								>
-									Mantener sesión
+									Correo electrónico
+									<span className="text-xs text-red-400">
+										<ErrorMessage name="email" />
+									</span>
 								</label>
+								<Field
+									type="text"
+									name="email"
+									id="email"
+									className="mt-2 bg-transparent border-2 border-mGrayBorder rounded-md py-2 px-4 outline-none focus:ring-0 focus:border-main text-mBlack text-opacity-75"
+								/>
 							</div>
-						</div>
-						<div className="w-full mt-3 flex items-center justify-center">
-							<button
-								type="submit"
-								className="w-full py-2 flex items-center justify-center bg-main text-white rounded-md shadow-main font-bold tracking-wide transform scale-100 transition duration-150 ease-cubic hover:scale-95 active:scale-95 focus:scale-95 hover:shadow-mainActive active:shadow-mainActive focus:shadow-mainActive"
-							>
-								Iniciar sesión
-							</button>
-						</div>
-					</form>
+							<div className="w-full mt-5 flex flex-col relative">
+								<label
+									htmlFor="password"
+									className="text-md flex items-center justify-between"
+								>
+									Contraseña
+									<span className="text-xs text-red-400">
+										<ErrorMessage name="password" />
+									</span>
+								</label>
+								<Field
+									type={showPassword ? 'text' : 'password'}
+									name="password"
+									id="password"
+									className="mt-2 bg-transparent border-2 border-mGrayBorder rounded-md py-2 px-4 outline-none focus:ring-0 focus:border-main text-mBlack text-opacity-75"
+								/>
+								{showPassword ? (
+									<EyeOffIcon
+										onClick={() =>
+											setShowPassword(!showPassword)
+										}
+										className="absolute right-4 bottom-1 w-auto h-8 stroke-current text-mGrayBorder cursor-pointer"
+									/>
+								) : (
+									<EyeIcon
+										onClick={() =>
+											setShowPassword(!showPassword)
+										}
+										className="absolute right-4 bottom-1 w-auto h-8 stroke-current text-mGrayBorder cursor-pointer"
+									/>
+								)}
+							</div>
+							<div className="w-full mt-3 flex items-center justify-start">
+								<div className="flex items-center h-5">
+									<input
+										id="comments"
+										aria-describedby="comments-description"
+										name="comments"
+										type="checkbox"
+										className="focus:ring-main h-4 w-4 bg-transparent text-main border-mGrayText rounded"
+									/>
+								</div>
+								<div className="ml-3 text-sm">
+									<label
+										htmlFor="comments"
+										className="font-medium text-mGrayText"
+									>
+										Mantener sesión
+									</label>
+								</div>
+							</div>
+							<div className="w-full mt-3 flex items-center justify-center">
+								<button
+									type="submit"
+									className="w-full py-2 flex items-center justify-center bg-main text-white rounded-md shadow-main font-bold tracking-wide transform scale-100 transition duration-150 ease-cubic hover:scale-95 active:scale-95 focus:scale-95 hover:shadow-mainActive active:shadow-mainActive focus:shadow-mainActive"
+								>
+									{sending ? (
+										<Loader size="6" horizontal={true} />
+									) : (
+										'Iniciar sesión'
+									)}
+								</button>
+							</div>
+						</Form>
+					</Formik>
 				</div>
-			</main>
+			</motion.main>
 		</>
 	);
 }
