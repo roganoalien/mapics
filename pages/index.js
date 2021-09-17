@@ -1,61 +1,30 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
-import { motion } from 'framer-motion';
-import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
-import { parseCookies, setCookie } from 'nookies';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { postOpen } from '../hooks/openAPI';
+import { AnimatePresence, motion } from 'framer-motion';
+import { parseCookies } from 'nookies';
+import { getSuperAdmin, validateToken } from '../utils/utils.open.api';
 import { useRouter } from 'next/dist/client/router';
-import { loginValidate, loginValues } from '../utils/utils.formik';
-import Loader from '../components/Loader';
-import BigLoader from '../components/BigLoader';
+import BigLoader from '../components/loaders/BigLoader';
+import Login from '../components/regularComponents/index/Login';
+import SuperAdmin from '../components/regularComponents/index/SuperAdmin';
 
-export default function Home() {
-	const [showPassword, setShowPassword] = useState(false);
+export default function Home({ superAdmin, validToken }) {
 	const [loadingAuthText, setLoadingAuthText] = useState('cargando');
-	const [sending, setSending] = useState(false);
-	const [loadAuth, setLoadAuth] = useState(true);
+	const [userCreated, setUserCreated] = useState(false);
 	const router = useRouter();
-	const jwt = parseCookies().mapics;
 
 	useEffect(async () => {
-		console.log('PARSE COOKIES', jwt);
-		if (jwt) {
-			const response = await postOpen('auth/local/token', {
-				token: jwt
-			});
-			if (response.status === 200) {
+		if (validToken) {
+			setTimeout(function () {
+				setLoadingAuthText('Sesión válida. Redirigiendo a "/admin"');
 				setTimeout(function () {
-					setLoadingAuthText('redirigiendo');
-					setTimeout(function () {
-						router.push('/admin');
-					}, 2000);
-				}, 1500);
-			} else {
-				setLoadAuth(false);
-			}
-		} else {
-			setLoadAuth(false);
+					router.push('/admin');
+				}, 2000);
+			}, 1500);
 		}
 	}, []);
 
-	const handleSubmit = async (values) => {
-		console.log('handleSubmit');
-		setSending(true);
-		const response = await postOpen('auth/local', values);
-		if (response.status === 200) {
-			console.log('RESPUESTA AUTH', response);
-			setCookie(null, 'mapics', response.token, {
-				maxAge: values.keep ? 30 * 24 * 60 * 60 : 1 * 24 * 60 * 60,
-				path: '/'
-			});
-			router.push('/admin');
-		} else {
-			setSending(false);
-		}
-	};
-
-	return loadAuth ? (
+	return validToken ? (
 		<>
 			<Head>
 				<title>Mapics Loading</title>
@@ -211,99 +180,30 @@ export default function Home() {
 					</div>
 				</div>
 				<div className="right w-full md:w-1/2 h-auto md:h-screen flex flex-col items-center justify-center px-32">
-					<h1 className="font-bold text-mBlack text-4xl tracking-wide w-full">
-						Iniciar Sesión
-					</h1>
-					<Formik
-						initialValues={loginValues}
-						validate={loginValidate}
-						onSubmit={handleSubmit}
-					>
-						<Form className="w-full flex flex-col items-start justify-start">
-							<div className="w-full mt-10 flex flex-col">
-								<label
-									htmlFor="email"
-									className="text-md flex items-center justify-between"
-								>
-									Correo electrónico
-									<span className="text-xs text-red-400">
-										<ErrorMessage name="email" />
-									</span>
-								</label>
-								<Field
-									type="text"
-									name="email"
-									id="email"
-									className="mt-2 bg-transparent border-2 border-mGrayBorder rounded-md py-2 px-4 outline-none focus:ring-0 focus:border-main text-mBlack text-opacity-75"
-								/>
-							</div>
-							<div className="w-full mt-5 flex flex-col relative">
-								<label
-									htmlFor="password"
-									className="text-md flex items-center justify-between"
-								>
-									Contraseña
-									<span className="text-xs text-red-400">
-										<ErrorMessage name="password" />
-									</span>
-								</label>
-								<Field
-									type={showPassword ? 'text' : 'password'}
-									name="password"
-									id="password"
-									className="mt-2 bg-transparent border-2 border-mGrayBorder rounded-md py-2 px-4 outline-none focus:ring-0 focus:border-main text-mBlack text-opacity-75"
-								/>
-								{showPassword ? (
-									<EyeOffIcon
-										onClick={() =>
-											setShowPassword(!showPassword)
-										}
-										className="absolute right-4 bottom-1 w-auto h-8 stroke-current text-mGrayBorder cursor-pointer"
-									/>
-								) : (
-									<EyeIcon
-										onClick={() =>
-											setShowPassword(!showPassword)
-										}
-										className="absolute right-4 bottom-1 w-auto h-8 stroke-current text-mGrayBorder cursor-pointer"
-									/>
-								)}
-							</div>
-							<div className="w-full mt-3 flex items-center justify-start">
-								<div className="flex items-center h-5">
-									<input
-										id="comments"
-										aria-describedby="comments-description"
-										name="comments"
-										type="checkbox"
-										className="focus:ring-main h-4 w-4 bg-transparent text-main border-mGrayText rounded"
-									/>
-								</div>
-								<div className="ml-3 text-sm">
-									<label
-										htmlFor="comments"
-										className="font-medium text-mGrayText"
-									>
-										Mantener sesión
-									</label>
-								</div>
-							</div>
-							<div className="w-full mt-3 flex items-center justify-center">
-								<button
-									type="submit"
-									className="w-full py-2 flex items-center justify-center bg-main text-white rounded-md shadow-main font-bold tracking-wide transform scale-100 transition duration-150 ease-cubic hover:scale-95 active:scale-95 focus:scale-95 hover:shadow-mainActive active:shadow-mainActive focus:shadow-mainActive"
-								>
-									{sending ? (
-										<Loader size="6" horizontal={true} />
-									) : (
-										'Iniciar sesión'
-									)}
-								</button>
-							</div>
-						</Form>
-					</Formik>
+					<AnimatePresence exitBeforeEnter>
+						{superAdmin && !userCreated ? (
+							<SuperAdmin
+								registered={() => setUserCreated(true)}
+							/>
+						) : (
+							<Login />
+						)}
+					</AnimatePresence>
 				</div>
 			</motion.main>
 		</>
 	);
+}
+
+export async function getServerSideProps(ctx) {
+	const superAdmin = await getSuperAdmin();
+	const cookie = parseCookies(ctx).mapics;
+	const validToken = cookie ? await validateToken(cookie) : null;
+
+	return {
+		props: {
+			superAdmin: superAdmin.can_create,
+			validToken
+		}
+	};
 }

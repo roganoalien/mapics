@@ -5,12 +5,13 @@ import Tippy from '@tippyjs/react';
 import { followCursor } from 'tippy.js';
 
 function PageTitle({
-	title,
-	the_span,
+	add_button = false,
+	event = false,
 	has_span = false,
 	has_button = false,
-	add_button = false,
-	other_buttons = false
+	other_buttons = false,
+	title,
+	the_span
 }) {
 	return (
 		<div className="page-title w-full lg:w-10/12 mx-auto flex items-center justify-start my-14 relative overflow-hidden">
@@ -47,6 +48,7 @@ function PageTitle({
 			></div>
 			{has_button && add_button ? (
 				<button
+					onClick={event}
 					initial={{ opacity: 0, x: 50 }}
 					animate={{ opacity: 1, x: 0 }}
 					exit={{ opacity: 0, x: 50 }}

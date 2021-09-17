@@ -2,10 +2,19 @@ import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { UserCircleIcon } from '@heroicons/react/solid';
 import { ChevronDownIcon } from '@heroicons/react/outline';
-import NextLink from '../../nextComponents/NextLink';
 import ActiveLink from '../../nextComponents/ActiveLink';
+import { destroyCookie } from 'nookies';
+import { useRouter } from 'next/router';
 
 function UserMenu() {
+	const router = useRouter();
+
+	const handleLogout = () => {
+		console.log('Handle Logout');
+		destroyCookie(null, 'mapics');
+		router.push('/');
+	};
+
 	return (
 		<Menu as={Fragment}>
 			{({ open }) => (
@@ -29,58 +38,99 @@ function UserMenu() {
 						leaveTo="transform scale-95 -translate-y-3 opacity-0"
 					>
 						<Menu.Items className="bg-mBackground border border-main absolute top-full right-0 translate-y-2 rounded-md text-main shadow-regular ring-0 ring-main ring-opacity-0 focus:outline-none overflow-hidden">
-							<Menu.Item disabled>
-								<p className="m-0 border-b border-main py-2 px-3 text-sm whitespace-nowrap">
-									Logueado como <strong>roganoalien</strong>
-								</p>
-							</Menu.Item>
-							<Menu.Item>
-								{({ active, close }) => (
-									<Menu.Button
-										onClick={() => {
-											close();
-										}}
-										className="w-full text-left"
-									>
-										<ActiveLink
-											className={`block py-2 px-3 ${
-												active
-													? 'bg-main bg-opacity-10'
-													: 'hover:bg-main hover:bg-opacity-10'
-											}`}
-											activeClassName={`block py-2 px-3 bg-main font-bold ${
-												active
-													? 'bg-opacity-20'
-													: 'bg-opacity-10'
-											}`}
-											href="/admin/perfil"
+							{({ active, close }) => (
+								<>
+									<Menu.Item disabled>
+										<p className="m-0 border-b border-main py-2 px-3 text-sm whitespace-nowrap">
+											Logueado como{' '}
+											<strong>roganoalien</strong>
+										</p>
+									</Menu.Item>
+									<Menu.Item>
+										<Menu.Button
+											onClick={() => {
+												close();
+											}}
+											className="w-full text-left"
 										>
-											<a>Mi perfil</a>
-										</ActiveLink>
-									</Menu.Button>
-								)}
-							</Menu.Item>
-							<Menu.Item>
-								{({ active, close }) => (
-									<Menu.Button
-										onClick={() => {
-											close();
-										}}
-										className="w-full text-left"
-									>
-										<NextLink
-											className={`block py-2 px-3 hover:bg-main hover:bg-opacity-10 ${
-												active
-													? 'bg-main bg-opacity-10'
-													: 'hover:bg-main hover:bg-opacity-10'
-											}`}
-											href="/logout"
+											<ActiveLink
+												className={`block py-2 px-3 ${
+													active
+														? 'bg-main bg-opacity-10'
+														: 'hover:bg-main hover:bg-opacity-10'
+												}`}
+												activeClassName={`block py-2 px-3 bg-main font-bold ${
+													active
+														? 'bg-opacity-20'
+														: 'bg-opacity-10'
+												}`}
+												href="/admin/cuentas"
+											>
+												<a>Cuentas</a>
+											</ActiveLink>
+										</Menu.Button>
+									</Menu.Item>
+									<Menu.Item>
+										<Menu.Button
+											onClick={() => {
+												close();
+											}}
+											className="w-full text-left"
 										>
-											Cerrar sesión
-										</NextLink>
-									</Menu.Button>
-								)}
-							</Menu.Item>
+											<ActiveLink
+												className={`block py-2 px-3 ${
+													active
+														? 'bg-main bg-opacity-10'
+														: 'hover:bg-main hover:bg-opacity-10'
+												}`}
+												activeClassName={`block py-2 px-3 bg-main font-bold ${
+													active
+														? 'bg-opacity-20'
+														: 'bg-opacity-10'
+												}`}
+												href="/admin/configuracion"
+											>
+												<a>Configuración</a>
+											</ActiveLink>
+										</Menu.Button>
+									</Menu.Item>
+									<Menu.Item>
+										<Menu.Button
+											onClick={() => {
+												close();
+											}}
+											className="w-full text-left"
+										>
+											<ActiveLink
+												className={`block py-2 px-3 ${
+													active
+														? 'bg-main bg-opacity-10'
+														: 'hover:bg-main hover:bg-opacity-10'
+												}`}
+												activeClassName={`block py-2 px-3 bg-main font-bold ${
+													active
+														? 'bg-opacity-20'
+														: 'bg-opacity-10'
+												}`}
+												href="/admin/perfil"
+											>
+												<a>Mi perfil</a>
+											</ActiveLink>
+										</Menu.Button>
+									</Menu.Item>
+									<Menu.Item as={Fragment}>
+										<button
+											type="button"
+											onClick={handleLogout}
+											className="w-full text-left"
+										>
+											<p className="block py-2 px-3 hover:bg-main hover:bg-opacity-10 w-full text-left">
+												Cerrar sesión
+											</p>
+										</button>
+									</Menu.Item>
+								</>
+							)}
 						</Menu.Items>
 					</Transition>
 				</>

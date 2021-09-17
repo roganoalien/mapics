@@ -1,9 +1,13 @@
 import Head from 'next/head';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Layout from '../../layout';
 import PageTitle from '../../components/regularComponents/Title';
 import CardSite from '../../components/regularComponents/CardSite';
 import { container } from '../../utils/motion.variants';
+import NewSite from '../../components/panels/NewSite';
+import { useState } from 'react';
+import { parseCookies } from 'nookies';
+import { validateToken } from '../../utils/utils.open.api';
 
 const sitesArray = [
 	{ url: 'https://rodrigogarcia.com.mx', visits: 10, clicks: 5 },
@@ -12,13 +16,20 @@ const sitesArray = [
 	{ url: 'https://umami.is', visits: 1500, clicks: 2500 }
 ];
 
-export default function Dashboard() {
+export default function Dashboard({ test }) {
+	const [addNew, setAddNew] = useState(false);
+
 	return (
 		<>
 			<Head>
 				<title>Sitios | Mapics</title>
 			</Head>
-			<PageTitle title="Mis sitios" has_button={true} add_button={true} />
+			<PageTitle
+				title="Mis sitios"
+				has_button={true}
+				add_button={true}
+				event={() => setAddNew(true)}
+			/>
 			<motion.div
 				variants={container}
 				initial="hidden"
@@ -37,8 +48,25 @@ export default function Dashboard() {
 					/>
 				))}
 			</motion.div>
+			<AnimatePresence exitBeforeEnter>
+				{addNew && <NewSite close={() => setAddNew(false)} />}
+			</AnimatePresence>
 		</>
 	);
 }
 
-Dashboard.getLayout = (page) => <Layout>{page}</Layout>;
+Dashboard.getLayout = (page) => {
+	const { validToken } = page.props.children[1].props.children.props;
+	return <Layout validToken={validToken}>{page}</Layout>;
+};
+
+export async function getServerSideProps(ctx) {
+	const cookie = parseCookies(ctx).mapics;
+	const validToken = cookie ? await validateToken(cookie) : null;
+
+	return {
+		props: {
+			validToken: validToken?.status === 200 ? true : false
+		}
+	};
+}
