@@ -1,7 +1,27 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { XIcon } from '@heroicons/react/outline';
+import { newSiteValidate, newSiteValues } from '../../utils/utils.formik';
+import { useState } from 'react';
+import Loader from '../loaders/Loader';
 
 function NewSite({ close }) {
+	const [loading, setLoading] = useState(false);
+
+	const handleSubmit = (values) => {
+		setLoading(true);
+		if (
+			values.domain.includes(values.https) ||
+			values.domain.includes('http://')
+		) {
+			values.domain = values.domain.includes('http://')
+				? values.domain.replace('http://', values.https)
+				: values.domain;
+		} else {
+			values.domain = `${values.https}${values.domain}`;
+		}
+	};
+
 	return (
 		<motion.div
 			initial={{ opacity: 0 }}
@@ -51,90 +71,124 @@ function NewSite({ close }) {
 								seguridad (https)
 							</p>
 						</div>
-						<form className="mt-5 grid grid-cols-1 gap-y-4">
-							<div className="col-span-1">
-								<label
-									htmlFor="domain"
-									className="block text-sm font-medium text-gray-700"
-								>
-									Url del sitio
-								</label>
-								<div className="mt-1 flex rounded-md group">
-									<span className="group-focus-within:border-main group-focus-within:ring-main group-focus-within:ring-1 inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-mBackground text-mGray sm:text-sm">
-										https://
-									</span>
-									<input
-										type="text"
-										name="domain"
-										id="domain"
-										autoComplete="domain"
-										className="flex-1 focus:ring-main focus:border-main block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
-									/>
-								</div>
-							</div>
-							<div className="col-span-1">
-								<label
-									htmlFor="name"
-									className="block text-sm font-medium text-gray-700"
-								>
-									Nombre del sitio
-								</label>
-								<div className="mt-1">
-									<input
-										type="text"
-										name="name"
-										id="name"
-										autoComplete="url-name"
-										className="focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md"
-									/>
-								</div>
-							</div>
-							<label
-								htmlFor="public"
-								className="relative flex items-start col-span-1 bg-gray-50 rounded-md p-4"
-							>
-								<div className="flex items-center h-5">
-									<input
-										id="public"
-										aria-describedby="public-description"
-										name="public"
-										type="checkbox"
-										className="focus:ring-main h-4 w-4 text-main border-gray-300 rounded"
-									/>
-								</div>
-								<div className="ml-3 text-sm">
+						<Formik
+							initialValues={newSiteValues}
+							validate={newSiteValidate}
+							onSubmit={handleSubmit}
+						>
+							{({ values }) => (
+								<Form className="mt-5 grid grid-cols-1 gap-y-4">
+									<div className="col-span-1">
+										<label
+											htmlFor="domain"
+											className="text-sm font-medium text-gray-700 flex items-center justify-between"
+										>
+											Url del sitio
+											<span className="text-xs text-red-400">
+												<ErrorMessage name="domain" />
+											</span>
+										</label>
+										<div className="mt-1 flex rounded-md group">
+											<span className="group-focus-within:border-main group-focus-within:ring-main group-focus-within:ring-1 inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-mBackground text-mGray sm:text-sm">
+												{values.https}
+											</span>
+											<Field
+												disabled={loading}
+												type="text"
+												name="domain"
+												id="domain"
+												autoComplete="domain"
+												className="flex-1 focus:ring-main focus:border-main block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
+											/>
+										</div>
+									</div>
+									<div className="col-span-1">
+										<label
+											htmlFor="name"
+											className="text-sm font-medium text-gray-700 flex items-center justify-between"
+										>
+											Nombre del sitio
+											<span className="text-xs text-red-400">
+												<ErrorMessage name="name" />
+											</span>
+										</label>
+										<div className="mt-1">
+											<Field
+												disabled={loading}
+												type="text"
+												name="name"
+												id="name"
+												autoComplete="url-name"
+												className="focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md"
+											/>
+										</div>
+									</div>
 									<label
 										htmlFor="public"
-										className="font-medium text-mBlack"
+										className={`relative flex items-start col-span-1 bg-gray-50 rounded-md p-4 border  ${
+											values.public
+												? 'border-main'
+												: 'border-mGrayBorder'
+										}`}
 									>
-										Reporte público
+										<div className="flex items-center h-5">
+											<Field
+												disabled={loading}
+												id="public"
+												aria-describedby="public-description"
+												name="public"
+												type="checkbox"
+												className="focus:ring-0 focus:ring-transparent h-4 w-4 text-main border-gray-300 rounded"
+											/>
+										</div>
+										<div className="ml-3 text-sm">
+											<label
+												htmlFor="public"
+												className="font-medium text-mBlack"
+											>
+												Reporte público
+											</label>
+											<p
+												id="public-description"
+												className="text-mGrayText"
+											>
+												Se puede acceder al informe con
+												una url pública
+											</p>
+										</div>
 									</label>
-									<p
-										id="public-description"
-										className="text-mGrayText"
-									>
-										Se puede acceder al informe con una url
-										pública
-									</p>
-								</div>
-							</label>
-							<div className="col-span-1 flex items-center justify-center space-x-6">
-								<button
-									type="reset"
-									onClick={close}
-									className="bg-white px-3 py-2 rounded-md text-mGrayText border border-mGrayBorder transition-all duration-150 ease-cubic transform hover:scale-90 scale-100"
-								>
-									Cancelar
-								</button>
-								<button
-									type="submit"
-									onClick={close}
-									className="bg-main shadow-mainActive px-3 py-2 rounded-md text-white font-medium transition-all duration-150 ease-cubic hover:shadow-main transform scale-100 hover:scale-105"
-								>
-									Agregar sitio
-								</button>
-							</div>
-						</form>
+									<div className="col-span-1 flex items-center justify-center space-x-6">
+										{!loading && (
+											<button
+												type="reset"
+												onClick={close}
+												className="bg-white px-3 py-2 rounded-md text-mGrayText border border-mGrayBorder transition-all duration-150 ease-cubic transform hover:scale-90 scale-100"
+											>
+												Cancelar
+											</button>
+										)}
+										<button
+											type="submit"
+											disabled={loading}
+											className={`bg-main shadow-mainActive px-3 py-2 rounded-md text-white font-medium transition-all duration-150 ease-cubic hover:shadow-main transform scale-100 hover:scale-105 ${
+												loading
+													? 'w-full text-center'
+													: ''
+											}`}
+										>
+											{loading ? (
+												<Loader
+													horizontal={true}
+													size="6"
+												/>
+											) : (
+												'Agregar sitio'
+											)}
+										</button>
+									</div>
+								</Form>
+							)}
+						</Formik>
 					</div>
 				</div>
 			</motion.div>

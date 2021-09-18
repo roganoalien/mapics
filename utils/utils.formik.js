@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 const obligatorio = 'Campo obligatorio';
 
 export const loginValues = {
@@ -50,6 +51,27 @@ export const superAdminValidate = (values) => {
 	}
 	if (!values.confirm_password) {
 		errors.confirm_password = obligatorio;
+	}
+	if (!values.name) {
+		errors.name = obligatorio;
+	}
+
+	return errors;
+};
+
+export const newSiteValues = {
+	https: 'https://',
+	domain: '',
+	name: '',
+	public: false,
+	website_id: uuidv4()
+};
+
+export const newSiteValidate = (values) => {
+	const errors = {};
+
+	if (!values.domain) {
+		errors.domain = obligatorio;
 	}
 	if (!values.name) {
 		errors.name = obligatorio;
