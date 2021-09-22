@@ -20,6 +20,7 @@ function NewSite({ close }) {
 		} else {
 			values.domain = `${values.https}${values.domain}`;
 		}
+		// const response =
 	};
 
 	return (
@@ -36,7 +37,13 @@ function NewSite({ close }) {
 			></div>
 			<motion.div
 				initial={{ opacity: 0, top: '52%' }}
-				animate={{ opacity: 1, top: '50%' }}
+				animate={{
+					opacity: 1,
+					top: '50%',
+					transition: {
+						delay: 0.5
+					}
+				}}
 				exit={{ opacity: 0, top: '52%' }}
 				className="the-panel absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20"
 			>
@@ -89,7 +96,7 @@ function NewSite({ close }) {
 											</span>
 										</label>
 										<div className="mt-1 flex rounded-md group">
-											<span className="group-focus-within:border-main group-focus-within:ring-main group-focus-within:ring-1 inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-mBackground text-mGray sm:text-sm">
+											<span className="group-focus-within:border-main group-hover:border-main group-focus-within:ring-main group-focus-within:ring-1 inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-mBackground text-mGray sm:text-sm">
 												{values.https}
 											</span>
 											<Field
@@ -98,7 +105,7 @@ function NewSite({ close }) {
 												name="domain"
 												id="domain"
 												autoComplete="domain"
-												className="flex-1 focus:ring-main focus:border-main block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
+												className="flex-1 focus:ring-main group-hover:border-main focus:border-main block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
 											/>
 										</div>
 									</div>
@@ -119,7 +126,7 @@ function NewSite({ close }) {
 												name="name"
 												id="name"
 												autoComplete="url-name"
-												className="focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md"
+												className="focus:ring-main focus:border-main hover:border-main block w-full sm:text-sm border-gray-300 rounded-md"
 											/>
 										</div>
 									</div>
@@ -128,7 +135,7 @@ function NewSite({ close }) {
 										className={`relative flex items-start col-span-1 bg-gray-50 rounded-md p-4 border  ${
 											values.public
 												? 'border-main'
-												: 'border-mGrayBorder'
+												: 'border-mGrayBorder hover:border-main'
 										}`}
 									>
 										<div className="flex items-center h-5">
@@ -162,7 +169,7 @@ function NewSite({ close }) {
 											<button
 												type="reset"
 												onClick={close}
-												className="bg-white px-3 py-2 rounded-md text-mGrayText border border-mGrayBorder transition-all duration-150 ease-cubic transform hover:scale-90 scale-100"
+												className="bg-white px-3 py-2 rounded-md text-mGrayText border border-mGrayBorder hover:text-main hover:border-main"
 											>
 												Cancelar
 											</button>
@@ -170,7 +177,7 @@ function NewSite({ close }) {
 										<button
 											type="submit"
 											disabled={loading}
-											className={`bg-main shadow-mainActive px-3 py-2 rounded-md text-white font-medium transition-all duration-150 ease-cubic hover:shadow-main transform scale-100 hover:scale-105 ${
+											className={`bg-main shadow-main px-3 py-2 rounded-md text-white font-medium transition-all duration-150 ease-cubic hover:shadow-mainActive transform scale-100 hover:scale-95 ${
 												loading
 													? 'w-full text-center'
 													: ''

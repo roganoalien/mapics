@@ -7,6 +7,8 @@ import SiteTitleData from '../../components/regularComponents/SiteTitleData';
 import MainChart from '../../components/regularComponents/MainChart';
 import WorldMapData from '../../components/regularComponents/WorldMapData';
 import HorizontalDivider from '../../components/regularComponents/HorizontalDivider';
+import { parseCookies } from 'nookies';
+import { validateToken } from '../../utils/utils.open.api';
 
 export default function Site() {
 	return (
@@ -37,4 +39,18 @@ export default function Site() {
 	);
 }
 
-Site.getLayout = (page) => <Layout>{page}</Layout>;
+Site.getLayout = (page) => {
+	const { validToken } = page.props.children[1].props.children.props;
+	return <Layout validToken={validToken}>{page}</Layout>;
+};
+
+export async function getServerSideProps(ctx) {
+	const cookie = parseCookies(ctx).mapics;
+	const validToken = cookie ? await validateToken(cookie) : null;
+
+	return {
+		props: {
+			validToken: validToken?.status === 200 ? true : false
+		}
+	};
+}

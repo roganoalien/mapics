@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import Head from 'next/head';
 import { motion } from 'framer-motion';
 // LOCAL COMPONENTS
 import Layout from '../../layout';
 import PageTitle from '../../components/regularComponents/Title';
-import { useState } from 'react';
+import { parseCookies } from 'nookies';
+import { validateToken } from '../../utils/utils.open.api';
 
 export default function Profile() {
 	const [tab, setTab] = useState('perfil');
@@ -67,7 +69,7 @@ export default function Profile() {
 									name="new-email"
 									id="new-email"
 									autoComplete="nope"
-									className="focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md bg-transparent"
+									className="focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md bg-transparent hover:border-main"
 								/>
 							</div>
 						</div>
@@ -84,7 +86,7 @@ export default function Profile() {
 									name="new-user"
 									id="new-user"
 									autoComplete="nope"
-									className="focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md  bg-transparent"
+									className="focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md  bg-transparent hover:border-main"
 								/>
 							</div>
 						</div>
@@ -152,7 +154,7 @@ export default function Profile() {
 									name="new-password"
 									id="new-password"
 									autoComplete="nope"
-									className="focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md bg-transparent"
+									className="focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md bg-transparent hover:border-main"
 								/>
 							</div>
 						</div>
@@ -169,7 +171,7 @@ export default function Profile() {
 									name="confirm-new-password"
 									id="confirm-new-password"
 									autoComplete="nope"
-									className="focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md bg-transparent"
+									className="focus:ring-main focus:border-main block w-full sm:text-sm border-gray-300 rounded-md bg-transparent hover:border-main"
 								/>
 							</div>
 						</div>
@@ -189,4 +191,18 @@ export default function Profile() {
 	);
 }
 
-Profile.getLayout = (page) => <Layout>{page}</Layout>;
+Profile.getLayout = (page) => {
+	const { validToken } = page.props.children[1].props.children.props;
+	return <Layout validToken={validToken}>{page}</Layout>;
+};
+
+export async function getServerSideProps(ctx) {
+	const cookie = parseCookies(ctx).mapics;
+	const validToken = cookie ? await validateToken(cookie) : null;
+
+	return {
+		props: {
+			validToken: validToken?.status === 200 ? true : false
+		}
+	};
+}

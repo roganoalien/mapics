@@ -17,10 +17,10 @@ function MainChart() {
 				<button
 					type="button"
 					onClick={() => setType('línea')}
-					className={`w-[86px] py-2 text-mGrayText rounded-l-md border border-mGrayBorder text-sm focus:z-0 focus:outline-none focus:ring-0 transition duration-150 ease-in-out ${
+					className={`w-[86px] py-2 rounded-l-md border border-mGrayBorder text-sm focus:z-0 focus:outline-none focus:ring-0 transition duration-150 ease-in-out ${
 						type === 'línea'
 							? 'bg-[#4140FF] border-[#4140FF] text-white'
-							: 'bg-transparent hover:bg-gray-50'
+							: 'bg-transparent hover:bg-gray-50 text-mGrayText'
 					}`}
 				>
 					línea
@@ -28,10 +28,10 @@ function MainChart() {
 				<button
 					type="button"
 					onClick={() => setType('barra')}
-					className={`-ml-px w-[86px] py-2 text-mGrayText rounded-r-md border border-mGrayBorder text-sm focus:z-0 focus:outline-none focus:ring-0 transition duration-150 ease-in-out ${
+					className={`-ml-px w-[86px] py-2 rounded-r-md border border-mGrayBorder text-sm focus:z-0 focus:outline-none focus:ring-0 transition duration-150 ease-in-out ${
 						type === 'barra'
 							? 'bg-[#4140FF] border-[#4140FF] text-white'
-							: 'bg-transparent hover:bg-gray-50'
+							: 'bg-transparent hover:bg-gray-50 text-mGrayText'
 					}`}
 				>
 					barras

@@ -18,6 +18,25 @@ const sitesArray = [
 
 export default function Dashboard({ test }) {
 	const [addNew, setAddNew] = useState(false);
+	const [inputValue, setInputValue] = useState('');
+
+	const filterOptions = (inputValue) => {
+		sitesArray.filter((i) => {
+			i.url.toLowerCase().includes(inputValue.toLowerCase());
+		});
+	};
+
+	const loadOptions = (inputValue, callback) => {
+		setTimeout(() => {
+			callback(filterOptions(inputValue));
+		}, 1000);
+	};
+
+	const handleInputChange = (newValue) => {
+		const theInput = newValue.replace(/\W/g, '');
+		setInputValue(theInput);
+		return theInput;
+	};
 
 	return (
 		<>
