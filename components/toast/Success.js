@@ -20,7 +20,7 @@ function Success({ text, shortText, closesIn, hide }) {
 			initial={{ opacity: 0, y: '-100%' }}
 			animate={{ opacity: 1, y: 0 }}
 			exit={{ opacity: 0, y: '-100%' }}
-			className="p-2 rounded-lg bg-white border border-gray-300 shadow-xl sm:p-3"
+			className="p-2 rounded-lg bg-white border border-gray-300 shadow-xl sm:p-3 pointer-events-auto"
 		>
 			<div className="flex items-center justify-between flex-wrap">
 				<div className="flex-1 flex items-center">

@@ -7,7 +7,7 @@ function Toast({ hide }) {
 	useTimeout(() => setDisplayChild(true), 0);
 
 	return (
-		<div className="fixed top-0 inset-x-0 pt-2 sm:pt-5 z-50 flex items-center justify-center">
+		<div className="fixed top-0 inset-x-0 pt-2 sm:pt-5 z-50 flex items-center justify-center pointer-events-none">
 			<div className="w-auto mx-auto px-2 sm:px-6 lg:px-8">
 				{displayChild && (
 					<Success
