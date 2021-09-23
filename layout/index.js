@@ -4,10 +4,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 import MainMenu from './MainMenu';
 import MainFooter from './MainFooter';
 import BigLoader from '../components/loaders/BigLoader';
+import Toast from '../components/toast';
 
 export default function Layout({ children, validToken }) {
 	const router = useRouter();
 	const [loaderText, setLoaderText] = useState('Cargando');
+	const [showToast, setShowToast] = useState(true);
+
+	const hideToast = () => {
+		setShowToast(false);
+	};
 
 	useEffect(async () => {
 		if (!validToken) {
@@ -33,7 +39,7 @@ export default function Layout({ children, validToken }) {
 			</div>
 			<MainFooter />
 			<AnimatePresence exitBeforeEnter>
-				{/* AQUI EL TOASTER */}
+				{showToast && <Toast hide={hideToast} />}
 			</AnimatePresence>
 		</motion.main>
 	) : (

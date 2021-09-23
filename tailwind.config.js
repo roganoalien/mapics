@@ -15,6 +15,8 @@ module.exports = {
 			boxShadow: {
 				right: '10px 0 25px 0 rgba(0,0,0,0.015), 15px 0 40px 0 rgba(0,0,0,0.015)',
 				main: '0 10px 30px -15px rgb(255,109,109), 0 10px 30px -10px rgb(255,171,171)',
+				success:
+					'0 10px 30px -15px rgba(88,231,150, .5), 0 10px 30px -10px rgba(88,255,150, .35)',
 				mainActive:
 					'0 5px 20px -15px rgba(255, 109, 109), 0 5px 20px -10px rgb(255, 171, 171)',
 				navigation: '10px 0 52px 0 rgba(0,0,0,0.08)',
@@ -31,7 +33,8 @@ module.exports = {
 				mGrayLight: '#E3E3E3',
 				mGrayBorder: '#DCDCDC',
 				main: '#FF6D6D',
-				mainLight: '#FFA2A2'
+				mainLight: '#FFA2A2',
+				success: '#58E796'
 			},
 			minHeight: {
 				// admin: 'calc(100vh - 92px)'
@@ -39,6 +42,9 @@ module.exports = {
 			},
 			transitionTimingFunction: {
 				cubic: 'cubic-bezier(.175,.885,.32,1.275)'
+			},
+			animation: {
+				countdown: 'spin 1s linear infinite'
 			}
 		}
 	},
