@@ -2,11 +2,18 @@ import { motion } from 'framer-motion';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { XIcon } from '@heroicons/react/outline';
 import { newSiteValidate, newSiteValues } from '../../utils/utils.formik';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Loader from '../loaders/Loader';
+// import { tailToast } from '../../utils/utils.toast';
 
 function NewSite({ close }) {
 	const [loading, setLoading] = useState(false);
+
+	useEffect(() => {
+		setTimeout(function () {
+			console.log('TOAST');
+		}, 3000);
+	}, []);
 
 	const handleSubmit = (values) => {
 		setLoading(true);
@@ -20,7 +27,6 @@ function NewSite({ close }) {
 		} else {
 			values.domain = `${values.https}${values.domain}`;
 		}
-		// const response =
 	};
 
 	return (

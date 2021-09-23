@@ -1,16 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { parseCookies } from 'nookies';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import MainMenu from './MainMenu';
 import MainFooter from './MainFooter';
-import { validateToken } from '../utils/utils.open.api';
 import BigLoader from '../components/loaders/BigLoader';
 
 export default function Layout({ children, validToken }) {
-	const authSession = parseCookies().mapics || null;
 	const router = useRouter();
-	const [loading, setLoading] = useState(true);
 	const [loaderText, setLoaderText] = useState('Cargando');
 
 	useEffect(async () => {
@@ -36,6 +32,9 @@ export default function Layout({ children, validToken }) {
 				</div>
 			</div>
 			<MainFooter />
+			<AnimatePresence exitBeforeEnter>
+				{/* AQUI EL TOASTER */}
+			</AnimatePresence>
 		</motion.main>
 	) : (
 		<motion.div
