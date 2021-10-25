@@ -4,15 +4,24 @@ import { XIcon } from '@heroicons/react/outline';
 import { newSiteValidate, newSiteValues } from '../../utils/utils.formik';
 import { useEffect, useState } from 'react';
 import Loader from '../loaders/Loader';
+import useNoScroll from '../../hooks/useNoScroll';
 // import { tailToast } from '../../utils/utils.toast';
 
 function NewSite({ close }) {
+	const [toggleScroll] = useNoScroll(false);
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		setTimeout(function () {
 			console.log('TOAST');
 		}, 3000);
+	}, []);
+
+	useEffect(() => {
+		toggleScroll(true);
+		return () => {
+			toggleScroll(false);
+		};
 	}, []);
 
 	const handleSubmit = (values) => {
@@ -27,6 +36,10 @@ function NewSite({ close }) {
 		} else {
 			values.domain = `${values.https}${values.domain}`;
 		}
+		fetch(process.env.NEXT_PUBLIC_API, {
+			method: 'POST',
+			body: JSON.stringify(values)
+		});
 	};
 
 	return (
