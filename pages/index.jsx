@@ -195,15 +195,15 @@ export default function Home({ superAdmin, validToken }) {
 	);
 }
 
-export async function getServerSideProps(ctx) {
-	const superAdmin = await getSuperAdmin();
-	const cookie = parseCookies(ctx).mapics;
-	const validToken = cookie ? await validateToken(cookie) : null;
+// export async function getServerSideProps(ctx) {
+// 	const superAdmin = await getSuperAdmin();
+// 	const cookie = parseCookies(ctx).mapics;
+// 	const validToken = cookie ? await validateToken(cookie) : null;
 
-	return {
-		props: {
-			superAdmin: superAdmin.can_create,
-			validToken
-		}
-	};
-}
+// 	return {
+// 		props: {
+// 			superAdmin: superAdmin.can_create,
+// 			validToken
+// 		}
+// 	};
+// }

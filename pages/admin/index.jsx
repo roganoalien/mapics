@@ -79,13 +79,13 @@ Dashboard.getLayout = (page) => {
 	return <Layout validToken={validToken}>{page}</Layout>;
 };
 
-export async function getServerSideProps(ctx) {
-	const cookie = parseCookies(ctx).mapics;
-	const validToken = cookie ? await validateToken(cookie) : null;
+// export async function getServerSideProps(ctx) {
+// 	const cookie = parseCookies(ctx).mapics;
+// 	const validToken = cookie ? await validateToken(cookie) : null;
 
-	return {
-		props: {
-			validToken: validToken?.status === 200 ? true : false
-		}
-	};
-}
+// 	return {
+// 		props: {
+// 			validToken: validToken?.status === 200 ? true : false
+// 		}
+// 	};
+// }
