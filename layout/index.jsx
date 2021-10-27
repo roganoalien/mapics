@@ -15,14 +15,14 @@ export default function Layout({ children, validToken }) {
 		setShowToast(false);
 	};
 
-	useEffect(async () => {
-		if (!validToken) {
-			setLoaderText('Acceso restringido. Redirigiendo a "/"');
-			setTimeout(function () {
-				router.push('/');
-			}, 3000);
-		}
-	}, []);
+	// useEffect(async () => {
+	// 	if (!validToken) {
+	// 		setLoaderText('Acceso restringido. Redirigiendo a "/"');
+	// 		setTimeout(function () {
+	// 			router.push('/');
+	// 		}, 3000);
+	// 	}
+	// }, []);
 
 	return validToken ? (
 		<motion.main
