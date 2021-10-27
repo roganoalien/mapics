@@ -6,7 +6,7 @@ import MainFooter from './MainFooter';
 import BigLoader from '../components/loaders/BigLoader';
 import Toast from '../components/toast';
 
-export default function Layout({ children, validToken }) {
+export default function Layout({ children, validToken = true }) {
 	const router = useRouter();
 	const [loaderText, setLoaderText] = useState('Cargando');
 	const [showToast, setShowToast] = useState(true);
