@@ -37,7 +37,7 @@ export default function Layout({ children, validToken = true }) {
 					{children}
 				</div>
 			</div>
-			<MainFooter />
+			{/* <MainFooter /> */}
 			<AnimatePresence exitBeforeEnter>
 				{showToast && <Toast hide={hideToast} />}
 			</AnimatePresence>
